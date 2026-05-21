@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barangay Information System - @yield('title', 'Home')</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .nav-link.active {
             background-color: #1e40af;
@@ -21,7 +21,7 @@
             <a href="{{ route('home') }}" class="text-xl font-bold tracking-wide">
                 🏘️ Barangay InfoSys
             </a>
-            <div class="flex gap-2 items-center">
+            <div class="flex gap-2 items-center flex-wrap">
                 <a href="{{ route('home') }}"
                    class="nav-link px-3 py-1 text-sm {{ request()->routeIs('home') ? 'active' : 'hover:bg-blue-700 rounded' }}">
                     Home
@@ -29,24 +29,65 @@
 
                 @auth
                     @if(auth()->user()->isAdmin())
-                        <a href="{{ route('admin.dashboard') }}"
-                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('admin.dashboard') ? 'active' : 'hover:bg-blue-700 rounded' }}">
-                            Admin Dashboard
+                        {{-- Admin Links --}}
+                        <a href="{{ route('households.index') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('households.*') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            Households
+                        </a>
+                        <a href="{{ route('households.create') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('households.create') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            Register Household
+                        </a>
+                        <a href="{{ route('announcements.index') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('announcements.*') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            📢 Announcements
+                        </a>
+                        <a href="{{ route('certificates.admin') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('certificates.admin') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            📄 Certificates
+                        </a>
+                        <a href="{{ route('concerns.admin') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('concerns.admin') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            📝 Concerns
+                        </a>
+                        {{-- Records Link --}}
+                        <a href="{{ route('logs.index') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('logs.*') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            📋 Records
+                        </a>
+                        <a href="{{ route('dashboard') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('dashboard') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            ⚙️ Admin Dashboard
+                        </a>
+
+                    @else
+                        {{-- Resident Links --}}
+                        <a href="{{ route('households.index') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('households.*') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            Households
+                        </a>
+                        <a href="{{ route('households.create') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('households.create') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            Register Household
+                        </a>
+                        <a href="{{ route('announcements.index') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('announcements.*') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            📢 Announcements
+                        </a>
+                        <a href="{{ route('certificates.index') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('certificates.*') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            📄 Certificates
+                        </a>
+                        <a href="{{ route('concerns.index') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('concerns.*') ? 'active' : 'hover:bg-blue-700 rounded' }}"
+                           title="Report concerns or request personal info changes">
+                            📝 Reports & Requests
+                        </a>
+                        <a href="{{ route('dashboard') }}"
+                           class="nav-link px-3 py-1 text-sm {{ request()->routeIs('dashboard') ? 'active' : 'hover:bg-blue-700 rounded' }}">
+                            My Profile
                         </a>
                     @endif
-
-                    <a href="{{ route('households.index') }}"
-                       class="nav-link px-3 py-1 text-sm {{ request()->routeIs('households.*') ? 'active' : 'hover:bg-blue-700 rounded' }}">
-                        Households
-                    </a>
-                    <a href="{{ route('households.create') }}"
-                       class="nav-link px-3 py-1 text-sm {{ request()->routeIs('households.create') ? 'active' : 'hover:bg-blue-700 rounded' }}">
-                        Register Household
-                    </a>
-                    <a href="{{ route('dashboard') }}"
-                       class="nav-link px-3 py-1 text-sm {{ request()->routeIs('dashboard') ? 'active' : 'hover:bg-blue-700 rounded' }}">
-                        My Profile
-                    </a>
 
                     <form method="POST" action="{{ route('logout') }}" class="inline">
                         @csrf
@@ -55,6 +96,7 @@
                             Logout
                         </button>
                     </form>
+
                 @else
                     <a href="{{ route('login') }}"
                        class="nav-link px-3 py-1 text-sm {{ request()->routeIs('login') ? 'active' : 'hover:bg-blue-700 rounded' }}">

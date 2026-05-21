@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Household extends Model
 {
-    protected $fillable = ['house_number', 'street', 'purok', 'user_id'];
+    protected $fillable = ['house_number', 'street', 'purok', 'residency_type', 'user_id'];
 
     public function user() {
         return $this->belongsTo(User::class);

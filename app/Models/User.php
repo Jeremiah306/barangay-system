@@ -26,9 +26,14 @@ class User extends Authenticatable
     ];
 
     public function household()
-    {
-        return $this->hasOne(Household::class);
-    }
+{
+    return $this->hasOne(Household::class)->latest();
+}
+
+public function households()
+{
+    return $this->hasMany(Household::class);
+}
 
     public function isAdmin()
     {
